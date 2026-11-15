@@ -127,7 +127,7 @@ elif [ "$choice" == "4" ]; then
     echo "You take the test."
     echo
 
-    if [ "$knowledge" -ge 80 ] && [ "$stress" -lt 80 ]; then
+    if [ "$knowledge" -ge 120 ] && [ "$stress" -lt 70 ]; then
         echo "You passed the test!"
         echo "Your studying paid off."
         exit 0
