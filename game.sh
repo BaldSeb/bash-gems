@@ -40,12 +40,75 @@ read -r -p "What is your choice? " choice
 
 
 if [ "$choice" == "1" ]; then
-    echo "You study hard for the test."
-  energy=$((energy - 10))
-  study_points=$((RANDOM % 16 + 10))
-knowledge=$((knowledge + study_points))
-echo "You gained $study_points intelligence!"
-  stress=$((stress + 5))
+    echo
+    echo "STUDY QUIZ"
+    echo "You will get 3 random questions."
+    echo
+
+    questions=(
+        "What's 17x19?"
+        "Which ancient civilization built Machu Picchu?"
+        "Square root of 2025?"
+        "What is the chemical symbol for tungsten?"
+        "Whats 144 in Roman numerals?"
+        "What planet has the shortest day?"
+    )
+
+    options=(
+      # a
+        $'a) 323\nb) 1719\nc) 351'
+      # b
+        $'a) Maya\nb) Incas\nc) Aztec'
+      # c
+        $'a) 25\nb) 35\nc) 45'
+      # b  
+        $'a) T\nb) W\nc) Tu'
+      # b
+        $'a) CLXIV\nb) CXLIV\nc) CCCXL'
+      # b
+        $'a) Mercury\nb) jupiter\nc) Uranus'
+    )
+
+    answers=("a" "b" "c" "b" "b" "b")
+
+    correct=0
+    total_points=0
+    declare -A asked
+
+    for ((question_number=1; question_number<=3; question_number++)); do
+
+        index=$((RANDOM % ${#questions[@]}))
+
+        while [[ ${asked[$index]} == "yes" ]]; do
+            index=$((RANDOM % ${#questions[@]}))
+        done
+
+        asked[$index]="yes"
+
+        echo "Question $question_number:"
+        echo "${questions[$index]}"
+        printf '%b\n' "${options[$index]}"
+
+        read -r -p "Answer: " answer
+
+        if [ "$answer" == "${answers[$index]}" ]; then
+            points=$((RANDOM % 16 + 10))
+            echo "Correct! You gained $points knowledge."
+            knowledge=$((knowledge + points))
+            total_points=$((total_points + points))
+            correct=$((correct + 1))
+        else
+            echo "Wrong!"
+            echo "You lost 5 knowledge and gained 5 stress."
+            knowledge=$((knowledge - 5))
+            stress=$((stress + 5))
+        fi
+
+        echo
+    done
+
+    echo "You got $correct out of 3 correct."
+    echo "Total knowledge gained: $total_points"
 elif [ "$choice" == "2" ]; then
     echo "You take a nap and feel refreshed."
   energy=$((energy + 20))
