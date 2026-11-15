@@ -19,6 +19,39 @@ echo
 echo "Welcome, $player_name. Youre about to be doing lots of work."
 
 echo
+echo "Choose difficulty:"
+echo "1. Easy"
+echo "2. Medium"
+echo "3. Hard"
+
+while true; do
+    read -r -p "Difficulty: " difficulty
+
+    if [ "$difficulty" == "1"]; then
+        difficluty_name="Easy"
+        quiz_questions=2
+        wrong_penalty=3
+        echo "You chose easy, are you lazy?"
+        break
+    elif [ "$difficulty" == "2" ]; then
+        difficulty_name="Medium"
+        quiz_questions=3
+        wrong_penalty=5
+        echo "You chose medium, finnaly a normal person."
+        break
+    elif [ "$difficulty" == "3" ]; then
+        difficulty_name="Hard"
+        quiz_questions=5
+        wrong_penalty=10
+        echo "You chose hard. Nice one!"
+        break
+    else
+        echo "Invalid choice. Please choose 1, 2, or 3."
+    fi
+done
+
+
+echo
 echo "your stats are:"
 echo "Energy: $energy"
 echo "Knowledge: $knowledge"
@@ -75,7 +108,7 @@ if [ "$choice" == "1" ]; then
     total_points=0
     declare -A asked
 
-    for ((question_number=1; question_number<=3; question_number++)); do
+    for ((question_number=1; question_number<=quiz_questions; question_number++)); do
 
         index=$((RANDOM % ${#questions[@]}))
 
@@ -99,15 +132,15 @@ if [ "$choice" == "1" ]; then
             correct=$((correct + 1))
         else
             echo "Wrong!"
-            echo "You lost 5 knowledge and gained 5 stress."
-            knowledge=$((knowledge - 5))
+            echo "You lost $wrong_penalty knowledge and gained 5 stress."
+            knowledge=$((knowledge - wrong_penalty))
             stress=$((stress + 5))
         fi
 
         echo
     done
 
-    echo "You got $correct out of 3 correct."
+    echo "You got $correct out of $quiz_questions correct."
     echo "Total knowledge gained: $total_points"
 elif [ "$choice" == "2" ]; then
     echo "You take a nap and feel refreshed."
@@ -159,6 +192,7 @@ echo "Energy: $energy"
 echo "Knowledge: $knowledge"
 echo "Stress: $stress"
 echo "Snacks: $snacks"
+echo "Difficulty: $difficulty_name"
 echo "------------------------------"
 echo
 
