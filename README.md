@@ -14,6 +14,9 @@ When the game starts, choose one of three difficulty modes:
 | Easy | 2 | 3 |
 | Medium | 3 | 5 |
 | Hard | 5 | 10 |
+| One Life | 7 | 100 |
+
+---
 
 Higher difficulties ask more questions and remove more knowledge when an
 answer is wrong. Correct answers still reward knowledge, while wrong answers

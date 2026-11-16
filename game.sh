@@ -23,11 +23,12 @@ echo "Choose difficulty:"
 echo "1. Easy"
 echo "2. Medium"
 echo "3. Hard"
+echo "4. One life"
 
 while true; do
     read -r -p "Difficulty: " difficulty
 
-    if [ "$difficulty" == "1"]; then
+    if [ "$difficulty" == "1" ]; then
         difficluty_name="Easy"
         quiz_questions=2
         wrong_penalty=3
@@ -44,6 +45,13 @@ while true; do
         quiz_questions=5
         wrong_penalty=10
         echo "You chose hard. Nice one!"
+        break
+        # Sets stress to 100 so if u get question wrong u die (in game)
+    elif [ "$difficulty" == "4" ]; then
+        difficulty_name="One-life"
+        quiz_questions=7
+        wrong_penalty=100
+        echo "One wrong answer and its over."
         break
     else
         echo "Invalid choice. Please choose 1, 2, or 3."
@@ -85,6 +93,7 @@ if [ "$choice" == "1" ]; then
         "What is the chemical symbol for tungsten?"
         "Whats 144 in Roman numerals?"
         "What planet has the shortest day?"
+        "Whats the value of pi?"
     )
 
     options=(
@@ -100,9 +109,11 @@ if [ "$choice" == "1" ]; then
         $'a) CLXIV\nb) CXLIV\nc) CCCXL'
       # b
         $'a) Mercury\nb) jupiter\nc) Uranus'
+      # c
+        $'a) 3.14\nb) 2.71\nc) 1.41'
     )
 
-    answers=("a" "b" "c" "b" "b" "b")
+    answers=("a" "b" "c" "b" "b" "b" "c")
 
     correct=0
     total_points=0
