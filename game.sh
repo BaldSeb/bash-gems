@@ -86,34 +86,16 @@ if [ "$choice" == "1" ]; then
     echo "You will get 3 random questions."
     echo
 
-    questions=(
-        "What's 17x19?"
-        "Which ancient civilization built Machu Picchu?"
-        "Square root of 2025?"
-        "What is the chemical symbol for tungsten?"
-        "Whats 144 in Roman numerals?"
-        "What planet has the shortest day?"
-        "Whats the value of pi?"
-    )
+    questions=()
+    options=()
+    answers=()
 
-    options=(
-      # a
-        $'a) 323\nb) 1719\nc) 351'
-      # b
-        $'a) Maya\nb) Incas\nc) Aztec'
-      # c
-        $'a) 25\nb) 35\nc) 45'
-      # b  
-        $'a) T\nb) W\nc) Tu'
-      # b
-        $'a) CLXIV\nb) CXLIV\nc) CCCXL'
-      # b
-        $'a) Mercury\nb) jupiter\nc) Uranus'
-      # c
-        $'a) 3.14\nb) 2.71\nc) 1.41'
-    )
-
-    answers=("a" "b" "c" "b" "b" "b" "c")
+    while IFS='|' read -r question option_a option_b option_c answer; do
+        [ -n "$question" ] || continue
+        questions+=("$question")
+        options+=("$option_a"$'\n'"$option_b"$'\n'"$option_c")
+        answers+=("$answer")
+    done < "$(dirname "$0")/questions.tsv"
 
     correct=0
     total_points=0
