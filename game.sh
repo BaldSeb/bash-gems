@@ -29,7 +29,7 @@ while true; do
     read -r -p "Difficulty: " difficulty
 
     if [ "$difficulty" == "1" ]; then
-        difficluty_name="Easy"
+        difficulty_name="Easy"
         quiz_questions=2
         wrong_penalty=3
         echo "You chose easy, are you lazy?"
@@ -160,6 +160,8 @@ elif [ "$choice" == "4" ]; then
     else
         echo "You did not pass this time."
         echo "Study more and try again."
+        echo "You had $knowledge knowledge."
+        sleep 2
         exit 0
     fi
 
